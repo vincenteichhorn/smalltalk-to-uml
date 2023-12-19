@@ -4,14 +4,14 @@ class STParser:
     def __init__(self) -> None:
         pass
 
-    def parse_classes(self, folder):
+    def parse_classes(self, folder, *args, **kwargs):
         classes = []
         for file in os.listdir(folder):
             if file.endswith(".class.st"):
-                classes.append(self.__parse_file(os.path.join(folder, file)))
+                classes.append(self.__parse_file(os.path.join(folder, file), *args, **kwargs))
         return classes
 
-    def __parse_file(self, filename):
+    def __parse_file(self, filename, remove_abbrv=""):
         cls = {
             "name": "",
             "superclass": "",
@@ -23,7 +23,7 @@ class STParser:
             got_instvars = False
             for ln in file:
                 line = ln.rstrip()
-                if "#name" in line: cls["name"] = line.split("#")[-1][:-1]
+                if "#name" in line: cls["name"] = line.split("#")[-1][:-1].replace(remove_abbrv, "")
                 if "#superclass" in line: cls["superclass"] = line.split("#")[-1][:-1]
                 if "#instVars" in line: got_instvars = True
                 if got_instvars and "'," in line: cls["attributes"].append(line[3:-2])

@@ -13,12 +13,14 @@ class UMLXML:
         self.class_width = 250
         self.last_position = [0, 0]
 
+        self.collapse_string = "collapsed=\"1\""
+
     def create_uml(self, classes):
         classes = [self.create_class(cls["name"], cls["attributes"], cls["instance"], cls["class"]) for cls in classes]
         return f'{self.__begin()}{"".join(classes)}{self.__end()}'
 
     def create_class(self, name, attribute_names, instance_method_names, class_method_names):
-        height = (len(attribute_names) + len(instance_method_names) + len(class_method_names)) * self.object_height + self.line_height + self.class_box_height
+        height = (len(attribute_names) + len(instance_method_names) + len(class_method_names)) * self.object_height + self.line_height + self.class_box_height + 10
         self.last_position[0] += self.class_width + 20
         class_box, class_id = self.__create_class_box(name, self.last_position, height)
         entities = []
@@ -40,9 +42,9 @@ class UMLXML:
         self.object_count += 1
         id = f'{self.objects}--{self.object_count}'
         return (
-            f'<mxCell id="{id}" value="{name}" style="swimlane;fontStyle=2;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize={self.class_box_height};horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=10;rounded=0;shadow=0;strokeWidth=1;fontSize=16;" parent="{self.root}-1" vertex="1" collapsed="{"1" if self.should_collapse else "0"}">\n' #
+            f'<mxCell id="{id}" value="{name}" style="swimlane;fontStyle=2;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize={self.class_box_height};horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=10;rounded=0;shadow=0;strokeWidth=1;fontSize=16;" parent="{self.root}-1" vertex="1" {self.collapse_string if self.should_collapse else ""}>\n' #
                 f'<mxGeometry x="{position[0]}" y="{position[1]}" width="{self.class_width}" height="{height}" as="geometry">\n'
-                    f'<mxRectangle x="{position[0]+30}" y="{position[1]+50}" width="{self.class_width}" height="{self.object_height}" as="alternateBounds" />\n'
+                    f'<mxRectangle x="{position[0]+30}" y="{position[1]+50}" width="{self.class_width}" height="{self.class_box_height}" as="alternateBounds" />\n'
                 '</mxGeometry>\n'
             '</mxCell>\n'
         ), id
