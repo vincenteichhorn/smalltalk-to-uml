@@ -30,11 +30,12 @@ class UMLXML:
             y += self.object_height
         entities.append(self.__create_line(class_id, y)[0])
         y += self.line_height
-        for meth in class_method_names:
-            entities.append(self.__create_content_text(meth, class_id, y, underline=True)[0])
+        last_cat = ""
+        for cat, meth in class_method_names:
+            entities.append(self.__create_content_text(f"{cat}>{meth}", class_id, y, underline=True)[0])
             y += self.object_height
-        for meth in instance_method_names:
-            entities.append(self.__create_content_text(meth, class_id, y)[0])
+        for cat, meth in instance_method_names:
+            entities.append(self.__create_content_text(f"{cat}>{meth}", class_id, y)[0])
             y += self.object_height
         return f'{class_box}{"".join(entities)}'
 
