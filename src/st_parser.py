@@ -11,7 +11,7 @@ class STParser:
                 classes.append(self.__parse_file(os.path.join(folder, file), *args, **kwargs))
         return classes
 
-    def __parse_file(self, filename, remove_abbrv=""):
+    def __parse_file(self, filename, abbrv=""):
         cls = {
             "name": "",
             "superclass": "",
@@ -24,7 +24,7 @@ class STParser:
             last_category = ""
             for ln in file:
                 line = ln.rstrip()
-                if "#name" in line: cls["name"] = line.split("#")[-1][:-1].replace(remove_abbrv, "")
+                if "#name" in line: cls["name"] = line.split("#")[-1][:-1].replace(abbrv, "")
                 if "#superclass" in line: cls["superclass"] = line.split("#")[-1][:-1]
                 if "#instVars" in line: got_instvars = True
                 if "#category" in line: last_category = line.split("#")[-1][:-1]

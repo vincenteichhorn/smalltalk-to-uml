@@ -1,5 +1,3 @@
-
-
 class UMLXML:
     def __init__(self) -> None:
         self.root = "WIyWlLk6GJQsqaUBKTNV"
@@ -12,8 +10,6 @@ class UMLXML:
         self.line_height = 10
         self.class_width = 250
         self.last_position = [0, 0]
-
-        self.collapse_string = "collapsed=\"1\""
 
     def create_uml(self, classes):
         classes = [self.create_class(cls["name"], cls["attributes"], cls["instance"], cls["class"]) for cls in classes]
@@ -30,7 +26,6 @@ class UMLXML:
             y += self.object_height
         entities.append(self.__create_line(class_id, y)[0])
         y += self.line_height
-        last_cat = ""
         for cat, meth in class_method_names:
             entities.append(self.__create_content_text(f"{cat}>{meth}", class_id, y, underline=True)[0])
             y += self.object_height
