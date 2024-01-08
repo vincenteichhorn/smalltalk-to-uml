@@ -9,6 +9,6 @@ options:
 ```
 
 ```
-python3 src/index.py --folder data/swa23-24-group13/src/SWAGroup13 --abbrv OMG > diagram.drawio
+python3 src/index.py --folder data/swa23-24-group13/src/SWAGroup13 --abbrv OMG > out/diagram.drawio
 ```
 - Open the .drawio with https://draw.io (Open Existing Diagram)
