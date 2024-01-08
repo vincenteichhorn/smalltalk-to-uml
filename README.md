@@ -1,11 +1,12 @@
 # Usage
+
 ```
 usage: index.py [-h] --folder FOLDER [--abbrv ABBRV]
 
 options:
   -h, --help       show this help message and exit
   --folder FOLDER  relative path to folder containing all class.st files (clone the SWA-Group-Repo into any folder e.g. /data/[repo-name])
-  --abbrv ABBRV    project abbreviation (e.h. 'OMG' for OMGGiraffe, OMGLion, ...) to remove in class names
+  --abbrv ABBRV    project abbreviation (e.g. 'OMG' for OMGGiraffe, OMGLion, ...) to be removed in class names
 ```
 
 ```
